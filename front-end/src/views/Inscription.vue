@@ -5,7 +5,7 @@
         <section class="col-12 col-md-8 mt-5 mx-auto p-3 bg-light rounded">
             <form @submit.prevent="sendForm(event)">
                 <p class="text-center m-2"> </p>
-                <h1 class="text-center font-weight-bold" style="font-size:4vw;" >INSCRIPTION</h1>
+                <h1 class="text-center font-weight-bold" style="font-size:3vw;" >Inscription</h1>
                 <div class="form-group">
                     <label for="inputUserName">Nom d'utilisateur:</label>
                     <input v-on:keydown="invalid = false" v-model="inputUserName" type="text" class="form-control" id="inputUserName" aria-describedby="userNameHelp" placeholder="Entrez votre nom">
@@ -57,7 +57,6 @@ export default {
             const mailRegex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
             const pwdRegex  = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})$/  
 
-
             if ( nameRegex.test(this.inputUserName) && mailRegex.test(this.inputEmail) && pwdRegex.test(this.inputPassword)) {
 
                 axios.post("http://localhost:3000/api/user/register", { 
@@ -79,12 +78,13 @@ export default {
         }
     }
 }    
+
 </script>
 
 <style scoped>
 
 .contrastBoutonVert{
-    background-color: black;
+    background-color: green;
 }
 
 .contrastBoutonBleu{

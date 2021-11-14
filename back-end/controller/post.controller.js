@@ -2,10 +2,52 @@
 const modele = require('../models');
 const Post = modele.post;
 const fs = require('fs');
+const Users = modele.users
+/* const Commentaires = modele.Commentaires
+ */
+
+/* {include: ["Commentaires", "User"], order: [["createdAt","DESC"]] } */
+
+//Lire tous les messages publiés
+exports.readAllPost = async (req,res) => {
+    console.log("eza")
+    Post.findAll({include: 
+        [
+        {model : Users , attributes : {exclude : ["password"]}},
+        /* {model : Commentaires} */]
+    })
+    .then(posts=> {
+        res.status(200).json(posts);
+    }) .catch(error=> {
+        res.status(404).json({error: error || "Le post n'a pas été trouvé."})
+    })
+}
+
+
+//Ne lire qu'un message en particulier
+exports.readOnePost = async (req,res) => {
+    Post.findByPk(req.params.id, {include: ["Commentaires", "User"] })
+    .then(post=> {
+        if(!post){throw "Le post n'a pas été trouvé."}
+        res.status(200).json(post);
+    }) .catch(error=> {
+        res.status(404).json({error: error || "Le post n'a pas été trouvé."})
+    })
+}
+
+
+
+
+
+
+
+
+
 
 
 //Création d'un message
 exports.createPost = async (req, res)=> {
+    console.log(req.body)
     try {
         let postData = req.file ? 
         {

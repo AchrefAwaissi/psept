@@ -9,15 +9,15 @@ const User = modele.users;
 exports.signUp = async (req, res) => {
     try {
         //Conditions validité du mot de passe
-        if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})$/.test(req.body.password)) {  
-            return res.status(401).json({ error: 'Le mot de passe doit contenir une lettre majuscule, une minuscule et au moins 1 chiffre (6 caractères minimum)' });
+  if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})$/.test(req.body.password)) {  
+    return res.status(401).json({ error: 'Le mot de passe doit contenir une lettre majuscule, une minuscule et au moins 1 chiffre (6 caractères minimum)' });
   } else {
         let hash = await bcrypt.hash(req.body.password, 10);
         let userData = {
             ...req.body,
             password: hash,
             isAdmin: req.body.isAdmin ? req.body .isAdmin : false ,
-            picture: `${req.protocol}://${req.get('host')}/images/kkk.jpeg`
+            picture: `${req.protocol}://${req.get('host')}/images/Achref.png`
         }
         let user = await User.create(userData);
         console.log(user);
